@@ -5,3 +5,4 @@ boilerplate next.js app with opinionated config.
 uses:
 - pages router
 - scss modules
+- eslint
