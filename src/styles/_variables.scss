@@ -1,0 +1,11 @@
+@function em-calc($size) {
+	$em-size: calc($size / 16px * 1em);
+	@return $em-size;
+}
+
+
+/*** Breakpoints ***/
+$media-sm: em-calc(576px);
+$media-md: em-calc(769px);
+$media-lg: em-calc(1024px);
+$media-xl: em-calc(1440px);
