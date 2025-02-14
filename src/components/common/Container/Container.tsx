@@ -49,52 +49,93 @@ export const useContainerClasses = ({
 	gap,
 	noBorder = false,
 }: ContainerProps) => {
-	const classes = useMemo(() => cn(styles['container'], className, {
-		[styles['container--white']]: backgroundColor === 'white',
-		[styles['container--gray']]: backgroundColor === 'gray',
-		[styles['container--noborder']]: noBorder,
-		[styles['container--hoverable']]: hoverable,
-		[styles['container--relative']]: position === 'relative',
-		[styles['container--absolute']]: position === 'absolute',
-		[styles['container--fullHeight']]: fullHeight,
-		[styles['container--fullWidth']]: fullWidth,
-		[styles['container--maxWidth']]: maxWidth,
-		[styles['container--maxHeight']]: maxHeight,
-		[styles['container--fitWidth']]: fitWidth,
-		[styles['container--autoMargin']]: margin === 'auto',
-		...Object.fromEntries(REM_RANGE.map((_, i) => [styles[`container--${i + 1}padding`], pad === i + 1])),
-		...Object.fromEntries(REM_RANGE.map((_, i) => [styles[`container--${i + 1}margin`], margin === i + 1])),
-		...Object.fromEntries(REM_RANGE.map((_, i) => [styles[`container--${i + 1}gap`], gap === i + 1])),
-		...Object.fromEntries(REM_RANGE.map((_, i) => [styles[`container--${i + 1}border-radius`], borderRadius === i + 1])),
-	}), [backgroundColor, borderRadius, className, fitWidth, fullHeight, fullWidth, gap, hoverable, margin, maxHeight, maxWidth, noBorder, pad, position]);
+	const classes = useMemo(
+		() =>
+			cn(styles['container'], className, {
+				[styles['container--white']]: backgroundColor === 'white',
+				[styles['container--gray']]: backgroundColor === 'gray',
+				[styles['container--noborder']]: noBorder,
+				[styles['container--hoverable']]: hoverable,
+				[styles['container--relative']]: position === 'relative',
+				[styles['container--absolute']]: position === 'absolute',
+				[styles['container--fullHeight']]: fullHeight,
+				[styles['container--fullWidth']]: fullWidth,
+				[styles['container--maxWidth']]: maxWidth,
+				[styles['container--maxHeight']]: maxHeight,
+				[styles['container--fitWidth']]: fitWidth,
+				[styles['container--autoMargin']]: margin === 'auto',
+				...Object.fromEntries(
+					REM_RANGE.map((_, i) => [
+						styles[`container--${i + 1}padding`],
+						pad === i + 1,
+					])
+				),
+				...Object.fromEntries(
+					REM_RANGE.map((_, i) => [
+						styles[`container--${i + 1}margin`],
+						margin === i + 1,
+					])
+				),
+				...Object.fromEntries(
+					REM_RANGE.map((_, i) => [
+						styles[`container--${i + 1}gap`],
+						gap === i + 1,
+					])
+				),
+				...Object.fromEntries(
+					REM_RANGE.map((_, i) => [
+						styles[`container--${i + 1}border-radius`],
+						borderRadius === i + 1,
+					])
+				),
+			}),
+		[
+			backgroundColor,
+			borderRadius,
+			className,
+			fitWidth,
+			fullHeight,
+			fullWidth,
+			gap,
+			hoverable,
+			margin,
+			maxHeight,
+			maxWidth,
+			noBorder,
+			pad,
+			position,
+		]
+	);
 
 	return classes;
 };
 
-const Container = forwardRef<HTMLDivElement, ContainerProps>(({ children, className, ...rest }, ref) => {
-	const classes = useContainerClasses({ className, ...rest });
+const Container = forwardRef<HTMLDivElement, ContainerProps>(
+	({ children, className, ...rest }, ref) => {
+		const classes = useContainerClasses({ className, ...rest });
 
-	const domSafeProps = Object.assign({}, rest);
-	delete domSafeProps.backgroundColor;
-	delete domSafeProps.borderRadius;
-	delete domSafeProps.fitWidth;
-	delete domSafeProps.fullHeight;
-	delete domSafeProps.fullWidth;
-	delete domSafeProps.gap;
-	delete domSafeProps.hoverable;
-	delete domSafeProps.margin;
-	delete domSafeProps.maxHeight;
-	delete domSafeProps.maxWidth;
-	delete domSafeProps.noBorder;
-	delete domSafeProps.pad;
-	delete domSafeProps.noBorder;
+		const domSafeProps = Object.assign({}, rest);
+		delete domSafeProps.backgroundColor;
+		delete domSafeProps.borderRadius;
+		delete domSafeProps.fitWidth;
+		delete domSafeProps.fullHeight;
+		delete domSafeProps.fullWidth;
+		delete domSafeProps.gap;
+		delete domSafeProps.hoverable;
+		delete domSafeProps.margin;
+		delete domSafeProps.maxHeight;
+		delete domSafeProps.maxWidth;
+		delete domSafeProps.noBorder;
+		delete domSafeProps.pad;
+		delete domSafeProps.noBorder;
 
-	return (
-		<div ref={ref} className={classes} {...domSafeProps}>
-			{children}
-		</div>
-	);
-});
+		return (
+			<div ref={ref} className={classes} {...domSafeProps}>
+				{children}
+			</div>
+		);
+	}
+);
 
 Container.displayName = 'Container';
 
